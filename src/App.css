@@ -36,3 +36,25 @@
     transform: rotate(360deg);
   }
 }
+
+.up{color: tomato;}
+
+.down{color: green;}
+
+.menu-chart{
+  padding: 0;
+}
+
+.menu-chart li{
+  display: inline-block;
+  list-style: none;
+  margin: 5px 8px;
+  background-color: #ddd;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.menu-chart li a{
+  color: gray;
+  text-decoration: none;;
+}
