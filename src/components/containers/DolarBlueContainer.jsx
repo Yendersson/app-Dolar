@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { api } from "../../services/json";
 import DolarBlue from "../pure/DolarBlue";
 import { Link, useParams } from "react-router-dom";
+import { getDolarExtern } from "../../services/axiosServicesExtern";
 //import DolarBlue from "../pure/DolarBlue";
 
 const initialOtherData = {
@@ -21,7 +22,15 @@ export const DolarBlueContainer = (props) => {
 
     useEffect(_ => {
         //obtainDolarValueToDate();
-        obtainDolarValueOffline();
+        obtainDolarValueExtern();
+        if (props.type === 'blue') obtainDolarValueOffline();
+        if (props.type === 'oficial') obtainDolarValueOffline();
+        
+        //if (props.type === 'blue') obtainDolarValueBlueToDate();
+        //if (props.type === 'oficial') obtainDolarValueToDate();
+        console.log(dolar);
+        //console.log(props)
+
     },[])
 
     useEffect(_ => {
@@ -30,7 +39,7 @@ export const DolarBlueContainer = (props) => {
 
     const obtainDolarValueOffline= () => {
         try {
-            console.log(props.type);
+            //console.log(props.type);
             setDolar(api);
         } catch (error) {
             alert(error);
@@ -56,10 +65,37 @@ export const DolarBlueContainer = (props) => {
         .finally(_ => setLoading(!loading));    
     }
 
+    const obtainDolarValueBlueToDate = () => {
+
+        getDolarBlue()
+        .then(response => {
+            if (response.data && response.status === 200){
+                console.log(response.data);
+                setDolar(response.data);
+                console.log(dolar);
+            } else {
+                throw new Error("there is a error")
+            }
+        })
+        .catch(err => alert(`Something bad has happen ${err}`))
+        .finally(_ => setLoading(!loading));    
+    }
+
+    //extern api
+
+    const obtainDolarValueExtern =() => {
+        getDolarExtern()
+        .then(response => {
+            if (response.status === 200) {
+                console.log(response.data);
+            }
+        })
+    }
+
     const compareWithYesterday = () => { 
 
         if (loading == false) {
-            const compareDolar = dolar[dolar.length-1].v - dolar[dolar.length-4].v;
+            const compareDolar = dolar[dolar.length-1].v - dolar[dolar.length-2].v;
             
             const tempOtherData = {
                 compare: compareDolar.toFixed(2),

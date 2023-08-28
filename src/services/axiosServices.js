@@ -1,5 +1,5 @@
 import axios from "axios";
-
+//API BANCO CENTRAL.
 const apiUrl = "usd";
 const proxyUrl = "https://bcra-proxy-cors.vercel.app";
 //const proxyUrl = "https://api.estadisticasbcra.com";
