@@ -39,7 +39,7 @@ export function chartBart(datas,text,time){
         datasets: [
           {
             label: text,
-            data: datas.map(row => row.v),
+            data: datas.map(row => row.value_sell),
            // tension: 0.5
           },
         ],
@@ -47,7 +47,7 @@ export function chartBart(datas,text,time){
 
     return (
         <div style={{width:'90%', margin: 'auto'}}>
-            <Bar options={options} data={data}></Bar>
+            <Line options={options} data={data}></Line>
         </div>
     )
 }
@@ -58,16 +58,16 @@ function iterateByTime(time, datas) {
 
     switch (time) {
         case 'year':
-            returnData = datas.map(row => new Date(row.d).getFullYear())
+            returnData = datas.map(row => new Date(row.date).getFullYear())
             break;
         case 'month':
-            returnData = datas.map(row => new Date(row.d).toLocaleString('es-ES', {month:'long'}))
+            returnData = datas.map(row => new Date(row.date).toLocaleString('es-ES', {month:'long'}))
             break;
         case '15':
-            returnData = datas.map(row => new Date(row.d).toLocaleString('es-ES', {month: 'numeric', day: 'numeric'}))
+            returnData = datas.map(row => new Date(row.date).toLocaleString('es-ES', {month: 'numeric', day: 'numeric'}))
             break;
         case '5':
-            returnData = datas.map(row => new Date(row.d).toLocaleString('es-ES', {month: 'numeric', day: 'numeric'}))
+            returnData = datas.map(row => new Date(row.date).toLocaleString('es-ES', {month: 'numeric', day: 'numeric'}))
             break;
 
         default:

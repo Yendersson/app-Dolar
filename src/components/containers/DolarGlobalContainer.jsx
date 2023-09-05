@@ -4,6 +4,7 @@ import { DolarBlueContainer } from "./DolarBlueContainer";
 import DolarBlue from "../pure/DolarBlue";
 import { ChartYear } from "../charts/Chart";
 import { DolarConatiner, DolarContainerBlue, DolarContainerOficial } from "./DolarContainer";
+import InflacionContainer from "./InflacionContainer";
 
 const DolarGlobalContaner = () => {
 
@@ -16,6 +17,8 @@ const DolarGlobalContaner = () => {
                 <Route path="/" index element={<DolarContainerBlue></DolarContainerBlue>} >
                 </Route>
                 <Route path="/oficial" element={<DolarContainerOficial></DolarContainerOficial>} >
+                </Route>
+                <Route path="/inflacion" element={<InflacionContainer></InflacionContainer>} >
                 </Route>
             </Routes> 
            </BrowserRouter>

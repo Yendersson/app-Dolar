@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import { api } from "../../services/json";
 import DolarBlue from "../pure/DolarBlue";
 import { Link, useParams } from "react-router-dom";
-import { getDolarExtern } from "../../services/axiosServicesExtern";
+import { getDolarExtern, getDolarHistoryExtern } from "../../services/axiosServicesExtern";
+import DolarCalculate from "./DolarCalculate";
 //import DolarBlue from "../pure/DolarBlue";
 
 const initialOtherData = {
@@ -12,91 +13,68 @@ const initialOtherData = {
     state: true,
 }
 
+const dolarInit = {
+    now: {},
+    evolution: [],
+};
+
 export const DolarContext = createContext();
 
 export const DolarBlueContainer = (props) => {
 
     const [loading, setLoading] = useState(true); // always true
-    const [dolar, setDolar] = useState([]);
+    const [dolar, setDolar] = useState(dolarInit);
     const [otherData, setOtherData] = useState(initialOtherData);
 
     useEffect(_ => {
-        //obtainDolarValueToDate();
-        obtainDolarValueExtern();
-        if (props.type === 'blue') obtainDolarValueOffline();
-        if (props.type === 'oficial') obtainDolarValueOffline();
-        
-        //if (props.type === 'blue') obtainDolarValueBlueToDate();
-        //if (props.type === 'oficial') obtainDolarValueToDate();
-        console.log(dolar);
-        //console.log(props)
-
+        getAllDolar();
     },[])
 
     useEffect(_ => {
         compareWithYesterday();
     },[loading])
 
-    const obtainDolarValueOffline= () => {
-        try {
-            //console.log(props.type);
-            setDolar(api);
-        } catch (error) {
-            alert(error);
-        } finally{
-            setLoading(!loading);
-        }
-    }
+    const getAllDolar= () => {
 
-    //Online
-    const obtainDolarValueToDate = () => {
+            getDolarExtern()
+            .then(response => {
+                if (response.status === 200) {
+                    const now = response.data;
+                    setDolar(prev => ({
+                        ...prev, now: now
+                    }));
+                }
+            })
+            .catch(err => {
+                alert(`Something went wrong ${err.message}`)
+            })/*.finally(_ => {
+                setLoading(!loading)
+            })*/
 
-        getDolarOficial()
-        .then(response => {
-            if (response.data && response.status === 200){
-                console.log(response.data);
-                setDolar(response.data);
-                console.log(dolar);
-            } else {
-                throw new Error("there is a error")
-            }
-        })
-        .catch(err => alert(`Something bad has happen ${err}`))
-        .finally(_ => setLoading(!loading));    
-    }
-
-    const obtainDolarValueBlueToDate = () => {
-
-        getDolarBlue()
-        .then(response => {
-            if (response.data && response.status === 200){
-                console.log(response.data);
-                setDolar(response.data);
-                console.log(dolar);
-            } else {
-                throw new Error("there is a error")
-            }
-        })
-        .catch(err => alert(`Something bad has happen ${err}`))
-        .finally(_ => setLoading(!loading));    
-    }
-
-    //extern api
-
-    const obtainDolarValueExtern =() => {
-        getDolarExtern()
-        .then(response => {
-            if (response.status === 200) {
-                console.log(response.data);
-            }
-        })
+            getDolarHistoryExtern()
+            .then(response => {
+                if (response.status === 200) {
+                    //console.log(response.data)
+                    const objArray = response.data
+                    setDolar(prev => ({
+                        ...prev, evolution: objArray
+                    }));
+                }
+            })
+            .catch(err => {
+                alert(`Something went wrong ${err.message}`)
+            }).finally(_ => {
+                setLoading(!loading)
+            })    
     }
 
     const compareWithYesterday = () => { 
 
         if (loading == false) {
-            const compareDolar = dolar[dolar.length-1].v - dolar[dolar.length-2].v;
-            
+            const dolarToday = (props.type === 'blue')? dolar.now.blue.value_sell : dolar.now.oficial.value_sell;
+            const collectionDolars = dolar.evolution.filter(item => new Date(item.date) !== new Date() && item.source.toLowerCase() === props.type);
+            const compareDolar = dolarToday - collectionDolars[0].value_sell;
+
             const tempOtherData = {
                 compare: compareDolar.toFixed(2),
                 state: (compareDolar === 0)? 'static' : compareDolar > 0? 'up': 'down'
@@ -115,10 +93,22 @@ export const DolarBlueContainer = (props) => {
                 <div>
                     <DolarContext.Provider value={dolar}> 
                         <DolarBlue value={dolar} extra={otherData} type={props.type}></DolarBlue>
-                    </DolarContext.Provider>
+                        <button>Calculadora</button>
+
+                        <DolarCalculate></DolarCalculate>
+                        <div style={{display: 'flex', flexWrap: 'wrap', margin: 'auto', width: '80%'}}>
+                            <Link to={'/inflacion'}>Inflacion</Link>
+                            <Link to={'/inflacion'}>Inflacion</Link>
+                            <Link to={'/inflacion'}>Inflacion</Link>
+                            <Link to={'/inflacion'}>Inflacion</Link>
+                            <Link to={'/inflacion'}>Inflacion</Link>
+                            <Link to={'/inflacion'}>Inflacion</Link>
+
+                        </div>
+                    </DolarContext.Provider>                    
                 </div>
                 )
-                }
+            }
         </div>
     )
 }

@@ -3,7 +3,7 @@ import {BrowserRouter, Routes, Route, Link} from 'react-router-dom'
 import { ChartFifteen, ChartFive, ChartMonth, ChartYear } from "../charts/Chart";
 import { DolarContext } from "../containers/DolarBlueContainer";
 
-const DolarMenu = () => {
+const DolarMenu = (props) => {
 
     const [chart, setChart] = useState('anio')
 
@@ -15,10 +15,10 @@ const DolarMenu = () => {
 
     const showCharts = () => {
 
-        if (chart === "anio") return <ChartYear value={dolar}></ChartYear>
-        if (chart === "month") return <ChartMonth value={dolar}></ChartMonth>
-        if (chart === "15D") return <ChartFifteen value={dolar}></ChartFifteen>
-        if (chart === "5D") return <ChartFive value={dolar}></ChartFive>
+        if (chart === "anio") return <ChartYear type={props.type}></ChartYear>
+        if (chart === "month") return <ChartMonth type={props.type}></ChartMonth>
+        if (chart === "15D") return <ChartFifteen type={props.type}></ChartFifteen>
+        if (chart === "5D") return <ChartFive type={props.type}></ChartFive>
     }
 
     return(

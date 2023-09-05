@@ -20,6 +20,7 @@ export const getDolarOficial = () => {
     })
 }
 
+//Reservas internacionales
 export const getReservas = () => {
     return axios.get(`${proxyUrl}/reservas`,{
         headers: headerToken
@@ -32,18 +33,21 @@ export const getCirculacion = () => {
     })
 }
 
+//Circulacion
 export const getInflacionMensual = () => {
     return axios.get(`${proxyUrl}/inflacion_mensual_oficial`,{
         headers: headerToken
     })
 }
 
+//inflacion
 export const getInflacionInterAnual = () => {
     return axios.get(`${proxyUrl}/inflacion_interanual_oficial`,{
         headers: headerToken
     })
 }
 
+//inflacion esperada
 export const getInflacionExpect = () => {
     return axios.get(`${proxyUrl}/inflacion_esperada_oficial`,{
         headers: headerToken

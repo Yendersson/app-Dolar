@@ -1,26 +1,29 @@
-
-export const filterByYears = (obj) => {
+export const filterByYears = (obj, type) => {
     let filteredData = [];
     let arrayOfDolarByYears = {};
-    obj.forEach(item => {
-        const itemYear = new Date(item.d).getFullYear();
+    console.log(obj.evolution)
+    let objByType = obj.evolution.filter(item => item.source.toLowerCase() === type);
+    
+    objByType.forEach(item => {
+        const itemYear = new Date(item.date).getFullYear();
         arrayOfDolarByYears[itemYear] = item;
     })
 
     for (const year in arrayOfDolarByYears) {
         filteredData.push(arrayOfDolarByYears[year]);
       }
-
+      console.log(filteredData);
       return filteredData;
 }
+const word = "";
 
-export const filterByMounth = (obj) => {
+export const filterByMounth = (obj, type) => {
 
     let filterMounth = {};
     let months = [];
-    const filteredByCurrentYear = obj.filter(item => new Date(item.d).getFullYear() === new Date().getFullYear());
+    const filteredByCurrentYear = obj.evolution.filter(item => new Date(item.date).getFullYear() === new Date().getFullYear() && item.source.toLowerCase() === type);
     filteredByCurrentYear.forEach(item => {
-        filterMounth[new Date(item.d).getMonth()] = item;
+        filterMounth[new Date(item.date).getMonth()] = item;
     })
 
     for (const month in filterMounth){
@@ -30,10 +33,10 @@ export const filterByMounth = (obj) => {
     return months;
 }
 
-export const filterByLastFifteenDays = (obj) => {
-   return obj.filter((item, index) => new Date(item.d).getFullYear() === new Date().getFullYear() && index > obj.length-16);    
+export const filterByLastFifteenDays = (obj, type) => {
+   return obj.evolution.filter((item, index) => new Date(item.date).getFullYear() === new Date().getFullYear() && index < 30 && item.source.toLowerCase() === type).reverse();    
 }
 
-export const filterByLastFiveDays = (obj) => {
-    return obj.filter((item, index) => new Date(item.d).getFullYear() === new Date().getFullYear() && index > obj.length-6);    
+export const filterByLastFiveDays = (obj, type) => {
+    return obj.evolution.filter((item, index) => new Date(item.date).getFullYear() === new Date().getFullYear() && index < 10 && item.source.toLowerCase() === type).reverse();    
  }
