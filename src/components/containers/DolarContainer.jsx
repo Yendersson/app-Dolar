@@ -1,6 +1,6 @@
 import React from "react";
 import { DolarBlueContainer } from "./DolarBlueContainer";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 
 export const DolarConatiner = () => {
@@ -10,6 +10,7 @@ export const DolarConatiner = () => {
                 <li><Link to={'/'}>Blue</Link></li>
                 <li><Link to={'/oficial'}>Oficial</Link></li>
             </ul>
+            <Outlet/>
         </div>
     )
 }

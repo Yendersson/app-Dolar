@@ -17,6 +17,11 @@ const DolarBlue = (props) =>{
         if (props.extra.state === 'down') return ( <span className="down"><i className="fa-solid fa-arrow-trend-down"></i>{ props.extra.compare } </span>)
     }
 
+    function dateFomar(time){
+        const date = new Date(time);
+        return `${date.getDate()}/${date.getMonth()+1} - ${date.getHours()}:${date.getMinutes()}`
+    }
+
     return (
         <div>
             <h2>Dolar {props.type}:</h2>
@@ -41,7 +46,7 @@ const DolarBlue = (props) =>{
                 }
             </h3>
             <span>{progress()}</span>
-            <span>Ultima actualizacion: </span>
+            <span>Ultima actualizacion: {dateFomar(dolar.now.last_update)}</span>
             { <DolarMenu type={props.type}></DolarMenu>}
             
         </div>
