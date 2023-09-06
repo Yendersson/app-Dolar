@@ -70,11 +70,12 @@ export const DolarBlueContainer = (props) => {
 
     const compareWithYesterday = () => { 
 
+        const dateNow = `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}`
+
         if (loading == false) {
             const dolarToday = (props.type === 'blue')? dolar.now.blue.value_sell : dolar.now.oficial.value_sell;
-            const collectionDolars = dolar.evolution.filter(item => new Date(item.date) !== new Date() && item.source.toLowerCase() === props.type);
-            const compareDolar = dolarToday - collectionDolars[0].value_sell;
-
+            const collectionDolars = dolar.evolution.filter(item => item.date !== dateNow.toString() && item.source.toLowerCase() === props.type);
+            const compareDolar = dolarToday - collectionDolars[1].value_sell;            
             const tempOtherData = {
                 compare: compareDolar.toFixed(2),
                 state: (compareDolar === 0)? 'static' : compareDolar > 0? 'up': 'down'

@@ -1,6 +1,7 @@
 import { useRoutes } from "react-router-dom"
 import { DolarConatiner, DolarContainerBlue, DolarContainerOficial } from "./components/containers/DolarContainer"
 import InflacionContainer from "./components/containers/InflacionContainer"
+import { elements } from "chart.js"
 
 const Router = () => {
 
@@ -19,6 +20,10 @@ const Router = () => {
                 },
             ]
         },
+        {
+            path: 'inflacion',
+            element:<InflacionContainer/>,
+        }
     ])
 
     return routes;
