@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getInflacionInterAnual } from "../../services/axiosServices";
+import Inflacion from "../pure/inflacion";
 
 const InflacionContainer = () => {
 
@@ -33,7 +34,14 @@ const InflacionContainer = () => {
             { loading? 
                 ( <span className="loader"></span>)
                 :
-                (<p>{inflacion[0].v}</p>)
+                (
+                    <div>
+                        <h1>Inflacion interanual actual</h1>
+                        <p>{inflacion[inflacion.length-1].v}</p>
+                        <Inflacion obj={inflacion} />
+                    </div>
+                )
+                
                 
             }
         </div>

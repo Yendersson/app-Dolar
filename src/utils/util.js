@@ -1,7 +1,6 @@
 export const filterByYears = (obj, type) => {
     let filteredData = [];
     let arrayOfDolarByYears = {};
-    console.log(obj.evolution)
     let objByType = obj.evolution.filter(item => item.source.toLowerCase() === type);
     
     objByType.forEach(item => {
@@ -12,7 +11,6 @@ export const filterByYears = (obj, type) => {
     for (const year in arrayOfDolarByYears) {
         filteredData.push(arrayOfDolarByYears[year]);
       }
-      console.log(filteredData);
       return filteredData;
 }
 const word = "";
@@ -39,4 +37,13 @@ export const filterByLastFifteenDays = (obj, type) => {
 
 export const filterByLastFiveDays = (obj, type) => {
     return obj.evolution.filter((item, index) => new Date(item.date).getFullYear() === new Date().getFullYear() && index < 10 && item.source.toLowerCase() === type).reverse();    
+ }
+
+ export const inflacionFilterByCurrentYear = (obj) => {
+    let currentYear = obj.filter(item => new Date(item.d).getFullYear() === new Date().getFullYear());
+    return currentYear;
+ }
+
+ export const inflacionFilterByLast12Month = (obj) => {
+    return obj.filter((item, index) => index > (obj.length - 12));
  }

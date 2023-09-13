@@ -8,9 +8,7 @@ import { DolarContext } from "../containers/DolarBlueContainer";
 const DolarBlue = (props) =>{
 
     const dolar = useContext(DolarContext);
-    console.log(props.type);
-    console.log(dolar)
-   // console.log(props.value)
+    
     function progress(){
         if (props.extra.state === 'static') return ( <span style={{color: 'gray'}}> --{ props.extra.compare }</span>)
         if (props.extra.state === 'up') return ( <span className="up"><i className="fa-solid fa-arrow-trend-up"></i>{ props.extra.compare } </span>)

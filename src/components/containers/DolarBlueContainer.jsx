@@ -6,6 +6,7 @@ import DolarBlue from "../pure/DolarBlue";
 import { Link, useParams } from "react-router-dom";
 import { getDolarExtern, getDolarHistoryExtern } from "../../services/axiosServicesExtern";
 import DolarCalculate from "./DolarCalculate";
+import LinkGrid from "../pure/LinkGrid";
 //import DolarBlue from "../pure/DolarBlue";
 
 const initialOtherData = {
@@ -97,15 +98,7 @@ export const DolarBlueContainer = (props) => {
                         <button>Calculadora</button>
 
                         <DolarCalculate></DolarCalculate>
-                        <div style={{display: 'flex', flexWrap: 'wrap', margin: 'auto', width: '80%'}}>
-                            <Link to={'/inflacion'}>Inflacion</Link>
-                            <Link to={'/inflacion'}>Inflacion</Link>
-                            <Link to={'/inflacion'}>Inflacion</Link>
-                            <Link to={'/inflacion'}>Inflacion</Link>
-                            <Link to={'/inflacion'}>Inflacion</Link>
-                            <Link to={'/inflacion'}>Inflacion</Link>
-
-                        </div>
+                        <LinkGrid/>
                     </DolarContext.Provider>                    
                 </div>
                 )

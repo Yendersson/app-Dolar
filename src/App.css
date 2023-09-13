@@ -58,3 +58,24 @@
   color: gray;
   text-decoration: none;;
 }
+
+.link-grid{
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: auto;
+}
+
+.link-grid div{
+  width: 30%;
+  background-color: #282c34;
+  padding: 1.5em;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+
+.link-grid div a{
+  color: white;
+  text-decoration: none;
+}
