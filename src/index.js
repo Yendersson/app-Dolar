@@ -5,11 +5,27 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+/*root.render(
   <>
     <App />
   </>
-);
+);*/
+
+const app = () => {
+	root.render(
+  		<>
+		    <App />
+		  </>
+		);
+};
+
+        if (window.cordova) { 
+         document.addEventListener('deviceready', () => {
+         app();
+          }, false);
+        } else { 
+        app();
+        }
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
