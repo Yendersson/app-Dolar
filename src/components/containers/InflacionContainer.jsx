@@ -1,15 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { getInflacionInterAnual } from "../../services/axiosServices";
+import { getInflacionInterAnual, getInflacionMensual } from "../../services/axiosServices";
 import Inflacion from "../pure/inflacion";
 
-const InflacionContainer = () => {
+const InflacionContainer = (props) => {
 
     const [inflacion, setInflacion] = useState([]);
     const [loading, setLoading] = useState(true); // always true
 
     useEffect (_ => {
-        obtainInflacionInter();
+        if (props.type === 'year') obtainInflacionInter();
+        if (props.type === 'month') obtainInflacionMotnh();
     },[])
+
+    const obtainInflacionMotnh = () => {
+        getInflacionMensual()
+        .then(respuesta => {
+            if(respuesta.status === 200 && respuesta.data){
+                setInflacion(respuesta.data);
+                //console.log(respuesta.data);
+            }
+        })
+        .catch(err => {
+            alert(`something went wrong ${err.message}`);
+        })
+        .finally(_ => {
+            setLoading(!loading)
+        })
+    }
 
     const obtainInflacionInter = () => {
         
@@ -17,7 +34,7 @@ const InflacionContainer = () => {
         .then(respuesta => {
             if(respuesta.status === 200 && respuesta.data){
                 setInflacion(respuesta.data);
-                console.log(respuesta.data)
+                //console.log(respuesta.data)
             }
         })
         .catch(err => {
@@ -36,9 +53,9 @@ const InflacionContainer = () => {
                 :
                 (
                     <div>
-                        <h1>Inflacion interanual actual</h1>
+                        <h2>Inflacion {props.type === 'year'? 'interanual': "mes"} actual</h2>
                         <p>{inflacion[inflacion.length-1].v}</p>
-                        <Inflacion obj={inflacion} />
+                        <Inflacion obj={inflacion} type={props.type} />
                     </div>
                 )
                 

@@ -11,7 +11,7 @@ const LinkGrid = () => {
                 <Link to={'/inflacion'}>Inflacion</Link>
             </div>
             <div>
-                <Link to={'/inflacion'}>Inflacion</Link>
+                <Link to={'/reservas'}>Reservas</Link>
             </div>
             <div>
                 <Link to={'/inflacion'}>Inflacion</Link>

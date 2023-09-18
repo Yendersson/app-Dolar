@@ -1,10 +1,21 @@
 export const filterByYears = (obj, type) => {
     let filteredData = [];
     let arrayOfDolarByYears = {};
-    let objByType = obj.evolution.filter(item => item.source.toLowerCase() === type);
+    let objByType = [];
+    console.log(obj)
+    if (type){
+        objByType = obj.evolution.filter(item => item.source.toLowerCase() === type);
+    } else {
+        objByType = obj;
+    }
     
     objByType.forEach(item => {
-        const itemYear = new Date(item.date).getFullYear();
+        let itemYear;
+        if (type) {
+            itemYear = new Date(item.date).getFullYear();
+        } else {
+            itemYear = new Date(item.d).getFullYear();
+        }
         arrayOfDolarByYears[itemYear] = item;
     })
 
@@ -13,15 +24,25 @@ export const filterByYears = (obj, type) => {
       }
       return filteredData;
 }
-const word = "";
 
 export const filterByMounth = (obj, type) => {
 
     let filterMounth = {};
     let months = [];
-    const filteredByCurrentYear = obj.evolution.filter(item => new Date(item.date).getFullYear() === new Date().getFullYear() && item.source.toLowerCase() === type);
+    let filteredByCurrentYear = [];
+
+    if (type){
+        filteredByCurrentYear = obj.evolution.filter(item => new Date(item.date).getFullYear() === new Date().getFullYear() && item.source.toLowerCase() === type);
+    } else {
+        filteredByCurrentYear = obj.filter(item => new Date(item.d).getFullYear() === new Date().getFullYear());   
+    }
+
     filteredByCurrentYear.forEach(item => {
-        filterMounth[new Date(item.date).getMonth()] = item;
+        if (type) {
+            filterMounth[new Date(item.date).getMonth()] = item;
+        } else {
+            filterMounth[new Date(item.d).getMonth()] = item;
+        }
     })
 
     for (const month in filterMounth){
@@ -32,12 +53,23 @@ export const filterByMounth = (obj, type) => {
 }
 
 export const filterByLastFifteenDays = (obj, type) => {
-   return obj.evolution.filter((item, index) => new Date(item.date).getFullYear() === new Date().getFullYear() && index < 30 && item.source.toLowerCase() === type).reverse();    
+    if (type) {
+        return obj.evolution.filter((item, index) => new Date(item.date).getFullYear() === new Date().getFullYear() && index < 30 && item.source.toLowerCase() === type).reverse();    
+    } else {
+        return obj.filter((item, index) => new Date(item.d).getFullYear() === new Date().getFullYear() && index > (obj.length - 16));    
+    }
 }
 
 export const filterByLastFiveDays = (obj, type) => {
-    return obj.evolution.filter((item, index) => new Date(item.date).getFullYear() === new Date().getFullYear() && index < 10 && item.source.toLowerCase() === type).reverse();    
+    if (type) {
+        return obj.evolution.filter((item, index) => new Date(item.date).getFullYear() === new Date().getFullYear() && index < 10 && item.source.toLowerCase() === type).reverse();    
+    }else {
+        return obj.filter((item, index) => new Date(item.d).getFullYear() === new Date().getFullYear() && index > (obj.length - 6));    
+    }
  }
+
+
+ //INFLACION INTERANUAL/MENSUAL
 
  export const inflacionFilterByCurrentYear = (obj) => {
     let currentYear = obj.filter(item => new Date(item.d).getFullYear() === new Date().getFullYear());

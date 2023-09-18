@@ -2,6 +2,8 @@ import { useRoutes } from "react-router-dom"
 import { DolarConatiner, DolarContainerBlue, DolarContainerOficial } from "./components/containers/DolarContainer"
 import InflacionContainer from "./components/containers/InflacionContainer"
 import { elements } from "chart.js"
+import { InflacionContainerGobal, InflacionInterAnual, InflacionMensual } from "./components/containers/InflacionContainerGlobal"
+import ReservasContainer from "./components/containers/ReservasContainer"
 
 const Router = () => {
 
@@ -21,8 +23,22 @@ const Router = () => {
             ]
         },
         {
-            path: 'inflacion',
-            element:<InflacionContainer/>,
+            path: '/inflacion',
+            element:<InflacionContainerGobal/>,
+            children: [
+                {
+                    path:'/inflacion',
+                    element: <InflacionInterAnual></InflacionInterAnual>
+                },
+                {
+                    path:'inflacion-mensual',
+                    element: <InflacionMensual></InflacionMensual>
+                }
+            ]
+        },
+        {
+            path: '/reservas',
+            element:<ReservasContainer></ReservasContainer>
         }
     ])
 
