@@ -33,24 +33,23 @@ export const DolarBlueContainer = (props) => {
 
     useEffect(_ => {
         compareWithYesterday();
-    },[loading])
+    },[dolar.now])
 
     const getAllDolar= () => {
 
             getDolarExtern()
             .then(response => {
                 if (response.status === 200) {
-                    const now = response.data;
+                    const nows = response.data;
+                    
                     setDolar(prev => ({
-                        ...prev, now: now
+                        ...prev, now: nows
                     }));
                 }
             })
             .catch(err => {
                 alert(`Something went wrong ${err.message}`)
-            })/*.finally(_ => {
-                setLoading(!loading)
-            })*/
+            })
 
             getDolarHistoryExtern()
             .then(response => {
@@ -58,7 +57,7 @@ export const DolarBlueContainer = (props) => {
                     //console.log(response.data)
                     const objArray = response.data
                     setDolar(prev => ({
-                        ...prev, evolution: objArray
+                        ...prev, evolution: objArray,
                     }));
                 }
             })
@@ -81,9 +80,11 @@ export const DolarBlueContainer = (props) => {
                 compare: compareDolar.toFixed(2),
                 state: (compareDolar === 0)? 'static' : compareDolar > 0? 'up': 'down'
             }
-            setOtherData(tempOtherData); 
+            setOtherData(tempOtherData);
         }
     }
+
+    console.log(dolar);
 
     return (
         <div>
@@ -93,6 +94,7 @@ export const DolarBlueContainer = (props) => {
                 :
                 (
                 <div>
+                    {
                     <DolarContext.Provider value={dolar}> 
                         <DolarBlue value={dolar} extra={otherData} type={props.type}></DolarBlue>
                         <button>Calculadora</button>
@@ -100,6 +102,7 @@ export const DolarBlueContainer = (props) => {
                         <DolarCalculate></DolarCalculate>
                         <LinkGrid/>
                     </DolarContext.Provider>                    
+                    }
                 </div>
                 )
             }

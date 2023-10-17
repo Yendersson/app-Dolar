@@ -4,6 +4,7 @@ import InflacionContainer from "./components/containers/InflacionContainer"
 import { elements } from "chart.js"
 import { InflacionContainerGobal, InflacionInterAnual, InflacionMensual } from "./components/containers/InflacionContainerGlobal"
 import ReservasContainer from "./components/containers/ReservasContainer"
+import Testing from "./components/Test/Testing"
 
 const Router = () => {
 
@@ -39,6 +40,10 @@ const Router = () => {
         {
             path: '/reservas',
             element:<ReservasContainer></ReservasContainer>
+        },
+        {
+            path: '/test',
+            element: <Testing></Testing>
         }
     ])
 

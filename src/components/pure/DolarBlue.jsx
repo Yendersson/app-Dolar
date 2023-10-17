@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {Chart} from 'chart.js/auto'
 import { chartBart } from "../../charts/exampleChart";
 //import { filterByLastFifteenDays, filterByLastFiveDays, filterByMounth, filterByYears } from "../../utils/util";
@@ -8,6 +8,14 @@ import { DolarContext } from "../containers/DolarBlueContainer";
 const DolarBlue = (props) =>{
 
     const dolar = useContext(DolarContext);
+    console.log(dolar);
+    console.log(Object.keys(dolar.now))
+
+    const [load, setLoad] = useState(true);
+
+    useEffect(_ => {
+        if (Object.keys(dolar.now).length > 0) setLoad(!load); 
+    }, [dolar.now])
     
     function progress(){
         if (props.extra.state === 'static') return ( <span style={{color: 'gray'}}> --{ props.extra.compare }</span>)
@@ -20,11 +28,12 @@ const DolarBlue = (props) =>{
         return `${date.getDate()}/${date.getMonth()+1} - ${date.getHours()}:${date.getMinutes()}`
     }
 
+
     return (
         <div>
             <h2>Dolar {props.type}:</h2>
             <h3 style={{marginBottom: '0'}}>
-                {props.type === 'blue'?
+                {!load && (props.type === 'blue'?
                     (
                         <>
                             {dolar.now.blue.value_sell}
@@ -41,7 +50,7 @@ const DolarBlue = (props) =>{
                         </>
                     )
                     
-                }
+                )}
             </h3>
             <span>{progress()}</span>
             <span>Ultima actualizacion: {dateFomar(dolar.now.last_update)}</span>
