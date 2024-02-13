@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+body, *{
+  box-sizing: border-box;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -68,9 +72,9 @@
 }
 
 .link-grid div{
-  width: 30%;
+  width: 33%;
   background-color: #282c34;
-  padding: 1.5em;
+  padding: 1.2em;
   margin-bottom: 5px;
   border-radius: 5px;
 }
@@ -78,4 +82,69 @@
 .link-grid div a{
   color: white;
   text-decoration: none;
+}
+
+p{
+  margin-top: 0;
+  font-size: 2.5rem;
+}
+
+.header{
+  background-color: green;
+  color: white;
+  width: 100%;
+  display: flex;
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+}
+
+.header button{
+  border: none;
+  background-color: transparent;
+  color: white;
+}
+.header button svg{
+  font-size: 1.2rem;
+}
+
+.sidenav{
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: green;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav ul{
+  margin: 0;
+  padding: 0;
+}
+
+.item-menu{
+  padding: 8px 8px 8px 32px;
+  font-size: 25px;
+  color: white;
+  list-style: none;
+  display: block;
+  transition: 0.3s;
+}
+
+.item-menu a{
+  color: white;
+  text-decoration: none;
+}
+
+.show{
+  width: 50%;
+}
+
+.opacity{
+  transition: 0.5s;
+  background-color: rgba(0,0,0,0.4);
 }

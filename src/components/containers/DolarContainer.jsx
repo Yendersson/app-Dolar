@@ -1,32 +1,33 @@
-import React from "react";
-import { DolarBlueContainer } from "./DolarBlueContainer";
+import React, { createContext } from "react";
 import { Link, Outlet } from "react-router-dom";
+import { useDolar } from "../../Hooks/useDolar";
 
+export const DolarContext = createContext();
 
 export const DolarConatiner = () => {
-    return(
-        <div>
-            <ul className="menu-chart">
-                <li><Link to={'/'}>Blue</Link></li>
-                <li><Link to={'/oficial'}>Oficial</Link></li>
-            </ul>
-            <Outlet/>
-        </div>
-    )
-}
 
-export const DolarContainerBlue = () => {
+    const {dolar, dolarHistory, loader} = useDolar();
+    
     return (
-        <div>
-            <DolarBlueContainer type={'blue'}></DolarBlueContainer>
-        </div>
-    )
-}
+        <DolarContext.Provider value={{ dolar, dolarHistory }}>
 
-export const DolarContainerOficial = () => {
-    return (
-        <div>
-            <DolarBlueContainer type={'oficial'}></DolarBlueContainer>
-        </div>
+            {loader ?
+                (<span className="loader"></span>)
+                :
+                (
+                    <>
+                        <ul className="menu-chart">
+                            <li>
+                                <Link to={"/"}>Blue</Link>
+                            </li>
+                            <li>
+                                <Link to={"/oficial"}>Oficial</Link>
+                            </li>
+                        </ul>
+                        <Outlet />
+                    </>
+                )
+            }
+        </DolarContext.Provider>
     )
 }

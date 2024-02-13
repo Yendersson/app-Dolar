@@ -1,14 +1,17 @@
-import logo from './logo.svg';
+
 import './App.css';
-import {DolarBlueContainer} from './components/containers/DolarBlueContainer';
-import DolarGlobalContaner from './components/containers/DolarGlobalContainer';
+import Container from './components/containers/Container';
 
 
 function App() {
+
+
+
+
   return (
     <div className="App">
 
-      <DolarGlobalContaner></DolarGlobalContaner>
+      <Container></Container>
 
     </div>
   );

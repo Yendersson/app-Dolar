@@ -1,10 +1,11 @@
 import { useRoutes } from "react-router-dom"
-import { DolarConatiner, DolarContainerBlue, DolarContainerOficial } from "./components/containers/DolarContainer"
+import { DolarConatiner } from "./components/containers/DolarContainer"
 import InflacionContainer from "./components/containers/InflacionContainer"
-import { elements } from "chart.js"
-import { InflacionContainerGobal, InflacionInterAnual, InflacionMensual } from "./components/containers/InflacionContainerGlobal"
 import ReservasContainer from "./components/containers/ReservasContainer"
-import Testing from "./components/Test/Testing"
+import { DolarBlue, DolarOficial } from "./components/containers/Dolar"
+import InflacionInterAnual from "./components/containers/InflacionInterAnual"
+import InflacionMensual from "./components/containers/InflacionMensual"
+import DolarCalculate from "./components/containers/DolarCalculate"
 
 const Router = () => {
 
@@ -15,17 +16,21 @@ const Router = () => {
             children: [
                 {
                     path: '/',
-                    element: <DolarContainerBlue/>
+                    element: <DolarBlue/>
                 },
                 {
                     path: 'oficial',
-                    element: <DolarContainerOficial/>
+                    element: <DolarOficial/>
+                },
+                {
+                    path: 'calculate',
+                    element: <DolarCalculate/>
                 },
             ]
         },
         {
             path: '/inflacion',
-            element:<InflacionContainerGobal/>,
+            element:<InflacionContainer/>,
             children: [
                 {
                     path:'/inflacion',
@@ -41,10 +46,6 @@ const Router = () => {
             path: '/reservas',
             element:<ReservasContainer></ReservasContainer>
         },
-        {
-            path: '/test',
-            element: <Testing></Testing>
-        }
     ])
 
     return routes;
