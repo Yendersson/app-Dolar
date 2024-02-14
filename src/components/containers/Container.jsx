@@ -9,11 +9,11 @@ const Container = () => {
 
     return(
         <div>
-           <HashRouter>
+           <BrowserRouter>
            <Header/>
             <Router/>
             <LinkGrid/>
-           </HashRouter>
+           </BrowserRouter>
         </div>
     )
 }
