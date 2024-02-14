@@ -12,6 +12,7 @@ const DolarInfo = ({dolar, diferencial, datetime, tipo}) => {
             <span>Venta</span>
             <p>{dolar.value_buy.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</p>
             <span style={{ color: diferencial === 0 ? "gray" : diferencial > 0 ? "green" : "red" }}>
+                {diferencial}
                 {diferencial === 0 ?
                  "--" 
                  : diferencial > 0 ? 
