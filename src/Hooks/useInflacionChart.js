@@ -7,7 +7,6 @@ let obj = {
       {
         label: "",
         data: [],
-       // tension: 0.5
       },
     ],
   };

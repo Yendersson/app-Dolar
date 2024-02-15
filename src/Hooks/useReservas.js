@@ -11,7 +11,10 @@ export const useReservas = () => {
             headers: { Authorization: `Bearer ${TOKEN}` }
         },)
         .then(res=>res.json())
-        .then(datos => setReservas(datos))
+        .then(datos => {
+            setReservas(datos)
+            console.log(datos);
+        })
         .catch(erro => alert(erro))
         .finally(_=> setLoading(!loading));
     },[])

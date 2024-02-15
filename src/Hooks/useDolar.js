@@ -9,20 +9,35 @@ export const useDolar = () => {
     const [loader, setLoader] = useState(true);
 
     useEffect(_ => {
-        fetch(URL_DOLAR_TODAY)
-            .then(res => res.json())
-            .then(data => setDolar(data))
-            .catch(err => alert(err))
-            .finally(_ => setLoader(!loader));
+
+        const onFecth = async () => {
+            try {
+                const response = await fetch(URL_DOLAR_TODAY)
+                const data = await response.json();
+                setDolar(data);
+            } catch (error) {
+                alert(error);
+            }
+        }
+        onFecth();
     }, []);
 
     useEffect(_ => {
-        fetch(URL_HISTORY_DOLAR)
-            .then(res => res.json())
-            .then(data => setDolarHistory(data))
-            .catch(err => alert(err))
+        const onFecth = async () => {
+            try {
+                const response = await fetch(URL_HISTORY_DOLAR)
+                const data = await response.json();
+                setDolarHistory(data);
+            } catch (error) {
+                alert(error);
+            }finally {
+                setLoader(!loader)
+            }
+        }
 
-    }, [dolar]);
+        if (Object.keys(dolar).length > 0) onFecth();
+
+    },[dolar]);
 
     return {dolar, dolarHistory, loader};
 }

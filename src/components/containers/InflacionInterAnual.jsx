@@ -3,14 +3,14 @@ import Inflacion from "./Inflacion";
 const URL_INFLACION_ANUAL = "https://bcra-proxy-cors.vercel.app/inflacion_interanual_oficial";
 
 const InflacionInterAnual = () => {
-    const {datos, loader} = useInflacion(URL_INFLACION_ANUAL);
+    const {datos, loader, obj} = useInflacion(URL_INFLACION_ANUAL);
 
     return (
         <div>
             {loader ?
                 (<span className="loader"></span>)
                 :
-                (<Inflacion data={datos} tipo={"InterAnual"}></Inflacion>)
+                (<Inflacion data={datos} obj={obj} tipo={"InterAnual"}></Inflacion>)
             }
         </div>
     )
